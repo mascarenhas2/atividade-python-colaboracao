@@ -1,6 +1,6 @@
 import pytest
 from abc import ABC, abstractmethod
-from projeto.models import endereco
+from projeto.models import endereco # Corrigi a importação para refletir o nome da classe
 
 class Funcionario:
     def __init__(self, nome, telefone, email, endereco, salario):
@@ -16,5 +16,19 @@ class Funcionario:
         self.nome = nome
         self.telefone = telefone
         self.email = email
-        self.endereco = endereco
+        self.endereco = endereco  # Supõe-se que 'endereco' seja um objeto da classe Endereco
         self.salario = salario
+
+    def __str__(self):
+        return (
+            f"Nome: {self.nome}\n"
+            f"Telefone: {self.telefone}\n"
+            f"Email: {self.email}\n"
+            f"Endereço: {self.endereco}\n" 
+            f"Salário: R$ {self.salario:.2f}"  
+        )
+
+# Exemplo de uso
+funcionario1 = Funcionario("João da Silva", "987654321", "joao@example.com", endereco, 3000.00)
+endereco = Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador")
+print(funcionario1)
