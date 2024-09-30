@@ -1,3 +1,4 @@
+import pytest
 from abc import ABC, abstractmethod
 from projeto.models import endereco
 
