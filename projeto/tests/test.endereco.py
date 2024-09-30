@@ -12,11 +12,11 @@ def test_endereco_inicializacao():
         cidade="Cidade B"
     )
     
-    assert endereco.logradouro == "Rua A", "O logradouro deve ser 'Rua A'"
-    assert endereco.numero == "123", "O número deve ser '123'"
-    assert endereco.complemento == "Apto 1", "O complemento deve ser 'Apto 1'"
-    assert endereco.cep == "12345-678", "O CEP deve ser '12345-678'"
-    assert endereco.cidade == "Cidade B", "A cidade deve ser 'Cidade B'"
+    assert endereco.logradouro == "Rua A"
+    assert endereco.numero == "123"
+    assert endereco.complemento == "Apto 1"
+    assert endereco.cep == "12345-678"
+    assert endereco.cidade == "Cidade B"
 
 def test_endereco_complemento_vazio():
     endereco = Endereco(
@@ -27,8 +27,48 @@ def test_endereco_complemento_vazio():
         cidade="Cidade C"
     )
     
-    assert endereco.logradouro == "Rua B", "O logradouro deve ser 'Rua B'"
-    assert endereco.numero == "456", "O número deve ser '456'"
-    assert endereco.complemento == "", "O complemento deve estar vazio"
-    assert endereco.cep == "98765-432", "O CEP deve ser '98765-432'"
-    assert endereco.cidade == "Cidade C", "A cidade deve ser 'Cidade C'"
+    assert endereco.logradouro == "Rua B"
+    assert endereco.numero == "456"
+    assert endereco.complemento == ""
+    assert endereco.cep == "98765-432"
+    assert endereco.cidade == "Cidade C"
+
+def test_endereco_logradouro_excedido():
+    with pytest.raises(ValueError, match="O logradouro não pode ter mais de 100 caracteres."):
+        Endereco(
+            logradouro="A" * 101,
+            numero="123",
+            complemento="Apto 1",
+            cep="12345-678",
+            cidade="Cidade B"
+        )
+
+def test_endereco_numero_invalido():
+    with pytest.raises(ValueError, match="O número deve ser um valor numérico."):
+        Endereco(
+            logradouro="Rua C",
+            numero="ABC",  # Número não numérico
+            complemento="Apto 1",
+            cep="12345-678",
+            cidade="Cidade B"
+        )
+
+def test_endereco_cep_invalido():
+    with pytest.raises(ValueError, match="O CEP deve estar no formato 'XXXXX-XXX'."):
+        Endereco(
+            logradouro="Rua D",
+            numero="789",
+            complemento="Apto 2",
+            cep="12345678",  # CEP sem o hífen
+            cidade="Cidade D"
+        )
+
+def test_endereco_cidade_excedida():
+    with pytest.raises(ValueError, match="A cidade não pode ter mais de 50 caracteres."):
+        Endereco(
+            logradouro="Rua E",
+            numero="101",
+            complemento="Apto 3",
+            cep="12345-678",
+            cidade="C" * 51  # Cidade excedendo o limite
+        )
