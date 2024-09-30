@@ -8,3 +8,4 @@ class Endereco():
         self.complemento = complemento
         self.cep = cep
         self.cidade = cidade
+
