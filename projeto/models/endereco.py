@@ -1,3 +1,4 @@
+
 class Endereco:
     def __init__(self, logradouro, numero, complemento, cep, cidade):
         if len(logradouro) > 100:
@@ -25,7 +26,3 @@ class Endereco:
             f"Cidade: {self.cidade}\n"
             f"CEP: {self.cep}"
         )
-
-# Exemplo de uso
-endereco = Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador")
-print(endereco)

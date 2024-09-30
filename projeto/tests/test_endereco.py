@@ -1,7 +1,8 @@
 # projeto/test_endereco.py
 
 import pytest
-from projeto.models import Endereco
+from models.endereco import Endereco
+
 
 def test_endereco_inicializacao():
     endereco = Endereco(

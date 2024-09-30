@@ -1,29 +1,17 @@
-# projeto/test_funcionario.py
-
+# projeto/tests/test_funcionario.py
 import pytest
-from projeto.models import Endereco
-from models import Funcionario 
+from models.endereco import Endereco
+from models.funcionario import Funcionario
 
-@pytest.fixture
-def endereco_exemplo():
-    return Endereco(rua="Rua A", numero="123", cidade="Cidade B")
+def test_funcionario_creation():
+    endereco = Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador")
+    funcionario = Funcionario("Andrei Luiz", "988112455", "andrei@2232.com", endereco, 3000.00)
 
-def test_funcionario_inicializacao(endereco_exemplo):
-    funcionario = Funcionario(
-        nome="João Silva",
-        telefone="123456789",
-        email="joao@exemplo.com",
-        endereco=endereco_exemplo,
-        salario=5000.0
-    )
-    
-    assert funcionario.nome == "João Silva"
-    assert funcionario.telefone == "123456789"
-    assert funcionario.email == "joao@exemplo.com"
-    assert funcionario.endereco.rua == "Rua A"
-    assert funcionario.endereco.numero == "123"
-    assert funcionario.endereco.cidade == "Cidade B"
-    assert funcionario.salario == 5000.0
+    assert funcionario.nome == "Andrei Luiz"
+    assert funcionario.telefone == "988112455"
+    assert funcionario.email == "andrei@2232.com"
+    assert funcionario.endereco.logradouro == "Rua das Flores"
+    assert funcionario.salario == 3000.00
 
 def test_funcionario_nome_excedido(endereco_exemplo):
     with pytest.raises(ValueError, match="O nome não pode ter mais de 50 caracteres."):

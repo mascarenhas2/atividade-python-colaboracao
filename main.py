@@ -1,5 +1,18 @@
+# main.py
 from projeto.models.endereco import Endereco
 from projeto.models.funcionario import Funcionario
 
-funcionario1 = Funcionario("Andrei Luiz", "71 98811-2455", "andrei@2232.com", 
-                           endereco("Rua A", "142", "Perto do Beco", "41253010", "Salvador"))
+def main():
+    funcionario = Funcionario(
+        nome="Andrei Luiz",
+        telefone="988112455",
+        email="andrei@2232.com",
+        endereco=Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador"),
+        salario= 3000.00
+    )
+    
+    # Exibindo as informações do funcionário
+    print(funcionario)
+
+
+main()
