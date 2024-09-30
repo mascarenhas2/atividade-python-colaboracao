@@ -1,8 +1,7 @@
-# funcionario.py
-from projeto.models.endereco import Endereco
+# projeto/models/funcionario.py
 
 class Funcionario:
-    def __init__(self, nome, telefone, email, endereco: Endereco, salario):
+    def __init__(self, nome, telefone, email, endereco, salario):
         if len(nome) > 50:
             raise ValueError("O nome não pode ter mais de 50 caracteres.")
         if not telefone.isdigit() or len(telefone) != 9:
@@ -19,10 +18,8 @@ class Funcionario:
         self.salario = salario
 
     def __str__(self):
-        return (
-            f"Nome: {self.nome}\n"
-            f"Telefone: {self.telefone}\n"
-            f"Email: {self.email}\n"
-            f"Endereço: {self.endereco}\n"
-            f"Salário: R$ {self.salario:.2f}"
-        )
+        return (f"Funcionário: {self.nome}\n"
+                f"Telefone: {self.telefone}\n"
+                f"Email: {self.email}\n"
+                f"Endereço: {self.endereco}\n"
+                f"Salário: {self.salario:.2f}")

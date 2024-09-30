@@ -1,11 +1,14 @@
 # projeto/tests/test_funcionario.py
 import pytest
-from models.endereco import Endereco
-from models.funcionario import Funcionario
+from projeto.models.endereco import Endereco
+from projeto.models.funcionario import Funcionario
 
-def test_funcionario_creation():
-    endereco = Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador")
-    funcionario = Funcionario("Andrei Luiz", "988112455", "andrei@2232.com", endereco, 3000.00)
+@pytest.fixture
+def endereco_exemplo():
+    return Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador")
+
+def test_funcionario_creation(endereco_exemplo):
+    funcionario = Funcionario("Andrei Luiz", "988112455", "andrei@2232.com", endereco_exemplo, 3000.00)
 
     assert funcionario.nome == "Andrei Luiz"
     assert funcionario.telefone == "988112455"

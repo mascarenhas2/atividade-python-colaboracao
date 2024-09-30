@@ -1,10 +1,11 @@
-
 class Endereco:
     def __init__(self, logradouro, numero, complemento, cep, cidade):
         if len(logradouro) > 100:
             raise ValueError("O logradouro não pode ter mais de 100 caracteres.")
         if not numero.isdigit():
             raise ValueError("O número deve ser um valor numérico.")
+        if not self.validar_cep(cep):
+            raise ValueError("O CEP deve estar no formato 'XXXXX-XXX'.")
         if len(cidade) > 50:
             raise ValueError("A cidade não pode ter mais de 50 caracteres.")
         
@@ -16,7 +17,12 @@ class Endereco:
 
     @staticmethod
     def validar_cep(cep):
-        return len(cep) == 10 and cep[5] == '-'
+        return (
+            len(cep) == 10 and 
+            cep[5] == '-' and 
+            cep[:5].isdigit() and 
+            cep[6:].isdigit()
+        )
 
     def __str__(self):
         complemento_str = f", {self.complemento}" if self.complemento else ""

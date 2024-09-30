@@ -1,12 +1,12 @@
-
+# projeto/tests/test_medico.py
 import pytest
-from models.endereco import Endereco  # Importando a classe Endereco
-from models.funcionario import Funcionario
-from models.medico import Medico  # Certifique-se de que o caminho está correto
+from projeto.models.endereco import Endereco  # Importando a classe Endereco
+from projeto.models.funcionario import Funcionario  # Se necessário, ou remova se não for usado
+from projeto.models.medico import Medico  # Certifique-se de que o caminho está correto
 
 @pytest.fixture
 def endereco_exemplo():
-    return Endereco(rua="Rua A", numero="123", complemento="Apto 1", cep="12345-678", cidade="Cidade B")
+    return Endereco(logradouro="Rua A", numero="123", complemento="Apto 1", cep="12345-678", cidade="Cidade B")
 
 def test_medico_inicializacao(endereco_exemplo):
     medico = Medico(
@@ -20,7 +20,7 @@ def test_medico_inicializacao(endereco_exemplo):
     assert medico.nome == "Dr. João"
     assert medico.telefone == "123456789"
     assert medico.email == "dr.joao@exemplo.com"
-    assert medico.endereco.rua == "Rua A"
+    assert medico.endereco.logradouro == "Rua A"  # Acessando logradouro
     assert medico.crm == "12345678"
 
 def test_medico_crm_vazio(endereco_exemplo):
