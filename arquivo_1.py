@@ -1,1 +1,0 @@
-print("colaborador 1.")
