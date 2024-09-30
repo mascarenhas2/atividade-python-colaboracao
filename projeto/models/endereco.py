@@ -1,6 +1,6 @@
+from projeto.models import funcionario
 
-
-class Endereco(ABC):
+class Endereco():
     def __init__(self, logradouro: str, numero: str, complemento: str, cep: str, cidade: float):
         # Inicializa os atributos do funcionário
         self.logradouro = logradouro
