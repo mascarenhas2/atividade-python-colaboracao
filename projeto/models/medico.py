@@ -1,16 +1,22 @@
 from models.funcionario import Funcionario
 from models.endereco import Endereco  # Corrigi para 'Endereco' com E maiúsculo
 
-class Medico(Funcionario):
-    def __init__(self, nome: str, telefone: str, email: str, endereco: Endereco, crm: str) -> None:
-        super().__init__(nome, telefone, email, endereco)
-        self.crm = crm
-        self.validar_dados()  # Chama a validação no momento da inicialização
-
-    def validar_dados(self):
-        if not self.crm:
-            raise ValueError("CRM INVÁLIDO: O campo precisa ser preenchido.")
-        if len(self.crm) != 8:
+class Medico:
+    def __init__(self, nome, telefone, email, endereco, crm):
+        if len(nome) > 50:
+            raise ValueError("O nome não pode ter mais de 50 caracteres.")
+        
+        if len(telefone) != 9:
+            raise ValueError("O telefone deve ter exatamente 9 dígitos.")
+        
+        if '@' not in email:
+            raise ValueError("O email deve ser válido.")
+        
+        if len(crm) != 8:
             raise ValueError("CRM inválido: Deve conter 8 caracteres.")
-        if not self.crm.isdigit():
-            raise ValueError("CRM inválido: Deve conter apenas números.")
+
+        self.nome = nome
+        self.telefone = telefone
+        self.email = email
+        self.endereco = endereco
+        self.crm = crm

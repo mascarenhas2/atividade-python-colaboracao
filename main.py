@@ -1,4 +1,7 @@
 # main.py
+import os
+os.system("cls || clear")
+
 from projeto.models.endereco import Endereco
 from projeto.models.funcionario import Funcionario
 

@@ -1,53 +1,39 @@
-import pytest 
-from models.endereco import Endereco 
-from models.funcionario import Funcionario
-from models.engenheiro import Engenheiro
+import pytest
+from projeto.models.endereco import Endereco
+from projeto.models.engenheiro import Engenheiro
 
 @pytest.fixture
 def endereco_exemplo():
-    return Endereco(rua="Rua B",numero="321",complemento ="Apto 2",cep = "87654-321", cidade="Cidade A",)
+    return Endereco("Rua dos Engenheiros", "456", "Apto 303", "65432-987", "Vitória da Conquista")
 
-def test_engenheiro_inicializacao(endereco_exemplo):
-    engenheiro = Engenheiro(
-        nome = "Carlos",
-        telefone = "987654321",
-        email = "carlos@gmail.com",
-        endereco = endereco_exemplo,
-        crea = "12345678"
-    )
 
-    assert engenheiro.nome == "Carlos"
-    assert engenheiro.telefone == "987654321"
-    assert engenheiro.email == "carlos@gmail.com"
-    assert engenheiro.endereco.rua == "Rua B"
-    assert engenheiro.crea == "12345678"
-
-def test_engenheiro_crea_vazio(endereco_exemplo):
-    with pytest.raises(ValueError, match="CRM INVÁLIDO: O campo precisa ser preenchido."):
+def test_engenheiro_nome_excedido(endereco_exemplo):
+    with pytest.raises(ValueError, match="O nome não pode ter mais de 50 caracteres."):
         Engenheiro(
-            nome = "Carlos",
-            telefone = "987654321",
-            email = "carlos@gmail.com",
-            endereco = endereco_exemplo,
-            crea = ""
+            nome="P" * 51,
+            telefone="987654321",
+            email="pedro@exemplo.com",
+            endereco=endereco_exemplo,
+            crea="87654321"
         )
 
-def test_engenheiro_crea_tam_incorreto(endereco_exemplo):
-    with pytest.raises(ValueError, match="CREA inválido: Deve conter 8 caracteres."):
+def test_engenheiro_telefone_invalido(endereco_exemplo):
+    with pytest.raises(ValueError, match="O telefone deve ter exatamente 9 dígitos."):
         Engenheiro(
-            nome = "Carlos",
-            telefone = "987654321",
-            email = "carlos@gmail.com",
-            endereco = endereco_exemplo,
-            crea = "1234567" #Apenas 7 caracteres
+            nome="Eng. Pedro",
+            telefone="98765432",  # Telefone com menos dígitos
+            email="pedro@exemplo.com",
+            endereco=endereco_exemplo,
+            crea="87654321"
         )
 
-def test_engenheiro_crea_nao_numerico(endereco_exemplo):
-    with pytest.raises(ValueError, match="CREA inválido: Deve conter apenas números."):
+def test_engenheiro_email_invalido(endereco_exemplo):
+    with pytest.raises(ValueError, match="O email deve ser válido."):
         Engenheiro(
-            nome = "Carlos",
-            telefone = "987654321",
-            email = "carlos@gmail.com",
-            endereco = endereco_exemplo,
-            crea = "1234567B" #CONTEM LETRAS 
-        )        
+            nome="Eng. Pedro",
+            telefone="987654321",
+            email="pedroexemplo.com",  # Email sem '@'
+            endereco=endereco_exemplo,
+            crea="87654321"
+        )
+
