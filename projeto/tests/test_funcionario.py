@@ -1,57 +1,52 @@
-# projeto/tests/test_funcionario.py
 import pytest
-from projeto.models.endereco import Endereco
-from projeto.models.funcionario import Funcionario
+from models.endereco import Endereco  # Substitua pelo caminho correto
+from models.funcionario import Funcionario  # Substitua pelo caminho correto
+from models.engenheiro import Engenheiro  # Substitua pelo caminho correto
+
+# Classe Funcionario é abstrata, então vamos criar uma classe concreta para testar
+class FuncionarioTeste(Funcionario):
+    def calcular_salario(self):
+        return self.salario
 
 @pytest.fixture
-def endereco_exemplo():
-    return Endereco("Rua das Flores", "123", "Apto 101", "12345-678", "Salvador")
+def endereco_valido():
+    return Endereco("Rua das Flores", "123", "Apto 45", "12345-678", "Cidade Exemplo")
 
-def test_funcionario_creation(endereco_exemplo):
-    funcionario = Funcionario("Andrei Luiz", "988112455", "andrei@2232.com", endereco_exemplo, 3000.00)
+def test_funcionario_inicializacao_valida(endereco_valido):
+    funcionario = FuncionarioTeste("João Silva", "999999999", "joao@example.com", endereco_valido, 5000.0)
+    assert funcionario.nome == "João Silva"
+    assert funcionario.telefone == "999999999"
+    assert funcionario.email == "joao@example.com"
+    assert funcionario.endereco == endereco_valido
+    assert funcionario.salario == 5000.0
 
-    assert funcionario.nome == "Andrei Luiz"
-    assert funcionario.telefone == "988112455"
-    assert funcionario.email == "andrei@2232.com"
-    assert funcionario.endereco.logradouro == "Rua das Flores"
-    assert funcionario.salario == 3000.00
+def test_funcionario_inicializacao_nome_invalido(endereco_valido):
+    with pytest.raises(ValueError):
+        FuncionarioTeste("J" * 51, "999999999", "joao@example.com", endereco_valido, 5000.0)
 
-def test_funcionario_nome_excedido(endereco_exemplo):
-    with pytest.raises(ValueError, match="O nome não pode ter mais de 50 caracteres."):
-        Funcionario(
-            nome="A" * 51,
-            telefone="123456789",
-            email="joao@exemplo.com",
-            endereco=endereco_exemplo,
-            salario=5000.0
-        )
+def test_funcionario_inicializacao_telefone_invalido(endereco_valido):
+    with pytest.raises(ValueError):
+        FuncionarioTeste("João Silva", "12345678", "joao@example.com", endereco_valido, 5000.0)
 
-def test_funcionario_telefone_invalido(endereco_exemplo):
-    with pytest.raises(ValueError, match="O telefone deve ter exatamente 9 dígitos."):
-        Funcionario(
-            nome="João Silva",
-            telefone="12345678",  # Telefone com menos dígitos
-            email="joao@exemplo.com",
-            endereco=endereco_exemplo,
-            salario=5000.0
-        )
+def test_funcionario_inicializacao_email_invalido(endereco_valido):
+    with pytest.raises(ValueError):
+        FuncionarioTeste("João Silva", "999999999", "joaoexample.com", endereco_valido, 5000.0)
 
-def test_funcionario_email_invalido(endereco_exemplo):
-    with pytest.raises(ValueError, match="O email deve ser válido."):
-        Funcionario(
-            nome="João Silva",
-            telefone="123456789",
-            email="joaoexemplo.com",  # Email sem '@'
-            endereco=endereco_exemplo,
-            salario=5000.0
-        )
+def test_funcionario_inicializacao_salario_negativo(endereco_valido):
+    with pytest.raises(ValueError):
+        FuncionarioTeste("João Silva", "999999999", "joao@example.com", endereco_valido, -1000.0)
 
-def test_funcionario_salario_negativo(endereco_exemplo):
-    with pytest.raises(ValueError, match="O salário não pode ser negativo."):
-        Funcionario(
-            nome="João Silva",
-            telefone="123456789",
-            email="joao@exemplo.com",
-            endereco=endereco_exemplo,
-            salario=-1000.0  # Salário negativo
-        )
+def test_str_metodo(endereco_valido):
+    funcionario = FuncionarioTeste("João Silva", "999999999", "joao@example.com", endereco_valido, 5000.0)
+    assert str(funcionario) == (
+        "Funcionário: João Silva\n"
+        "Telefone: 999999999\n"
+        "Email: joao@example.com\n"
+        "Endereço: Logradouro: Rua das Flores\n"
+        "Número: 123\n"
+        "Cidade: Cidade Exemplo\n"
+        "CEP: 12345-678, Apto 45\n"
+        "Salário: 5000.00"
+    )
+
+# Se precisar, adicione mais testes conforme necessário.

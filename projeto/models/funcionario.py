@@ -1,7 +1,8 @@
-# projeto/models/funcionario.py
+from abc import ABC, abstractmethod
+from projeto.models.endereco import Endereco  # Corrigido para projeto.models
 
-class Funcionario:
-    def __init__(self, nome, telefone, email, endereco, salario):
+class Funcionario(ABC):
+    def __init__(self, nome, telefone, email, endereco: Endereco, salario):
         if len(nome) > 50:
             raise ValueError("O nome não pode ter mais de 50 caracteres.")
         if not telefone.isdigit() or len(telefone) != 9:
@@ -16,6 +17,10 @@ class Funcionario:
         self.email = email
         self.endereco = endereco
         self.salario = salario
+
+    @abstractmethod
+    def calcular_salario(self):
+        pass
 
     def __str__(self):
         return (f"Funcionário: {self.nome}\n"

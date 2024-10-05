@@ -1,5 +1,5 @@
 class Endereco:
-    def __init__(self, logradouro, numero, complemento, cep, cidade):
+    def __init__(self, logradouro: str, numero: str, complemento: str, cep: str, cidade: str) -> None:
         if len(logradouro) > 100:
             raise ValueError("O logradouro não pode ter mais de 100 caracteres.")
         if not numero.isdigit():
@@ -14,19 +14,23 @@ class Endereco:
         self.cidade = cidade
 
     @staticmethod
-    def validar_cep(cep):
-        return (
-            len(cep) == 10 and 
-            cep[5] == '-' and 
-            cep[:5].isdigit() and 
-            cep[6:].isdigit()
-        )
+    def validar_cep(cep: str) -> bool:
+        partes = cep.split('-')
+        if len(partes) != 2:
+            return False
+        primeira_parte = partes[0]
+        segunda_parte = partes[1]
+        if len(primeira_parte) != 5 or len(segunda_parte) != 3:
+            return False
+        if not primeira_parte.isdigit() or not segunda_parte.isdigit():
+            return False
+        return True
 
-    def __str__(self):
+    def __str__(self) -> str:
         complemento_str = f", {self.complemento}" if self.complemento else ""
         return (
             f"Logradouro: {self.logradouro}\n"
-            f"Número: {self.numero}{complemento_str}\n"
+            f"Número: {self.numero}\n"
             f"Cidade: {self.cidade}\n"
-            f"CEP: {self.cep}"
+            f"CEP: {self.cep}{complemento_str}"
         )

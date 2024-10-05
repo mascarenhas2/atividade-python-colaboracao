@@ -1,9 +1,9 @@
-from models.funcionario import Funcionario
-from models.endereco import Endereco 
+from projeto.models.funcionario import Funcionario
+from projeto.models.endereco import Endereco  # Corrigido para projeto.models
 
 class Engenheiro(Funcionario):
-    def __init__(self, nome: str, telefone: str, crea: str, email: str, endereco: Endereco) -> None:
-        super().__init__(nome, telefone, crea , email, endereco)
+    def __init__(self, nome, telefone, email, crea, endereco: Endereco, salario):
+        super().__init__(nome, telefone, email, endereco, salario)
         self.crea = crea
         self.validar_dados()
     
@@ -15,3 +15,13 @@ class Engenheiro(Funcionario):
         if not self.crea.isdigit():
             raise ValueError("CREA inválido: Deve conter apenas números.")
 
+    def calcular_salario(self):
+        return self.salario
+    
+    def __str__(self):
+        return (f"Engenheiro: {self.nome}\n"
+                f"Telefone: {self.telefone}\n"
+                f"CREA: {self.crea}\n"
+                f"Email: {self.email}\n"
+                f"Endereço: {self.endereco}\n"
+                f"Salário: {self.salario:.2f}")
