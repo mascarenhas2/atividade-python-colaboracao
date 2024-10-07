@@ -8,7 +8,7 @@ from models.medico import Medico  # Substitua pelo caminho correto
 def endereco_valido():
     return Endereco("Rua das Flores", "123", "Apto 45", "12345-678", "Cidade Exemplo")
 
-def test_medico_inicializacao_valida(endereco_valido):
+def test_medico_inicializacao_valida(endereco_valido): #Teste de validade do endereco
     medico = Medico("Dr. João Silva", "999999999", "joao@example.com", endereco_valido, "12345678", 10000.0)
     assert medico.nome == "Dr. João Silva"
     assert medico.telefone == "999999999"
@@ -17,19 +17,19 @@ def test_medico_inicializacao_valida(endereco_valido):
     assert medico.crm == "12345678"
     assert medico.salario == 10000.0
 
-def test_medico_inicializacao_crm_invalido_tamanho(endereco_valido):
+def test_medico_inicializacao_crm_invalido_tamanho(endereco_valido): #Teste relacionado ao erro do tamanho do CRM invalido
     with pytest.raises(ValueError):
         Medico("Dr. João Silva", "999999999", "joao@example.com", endereco_valido, "1234567", 10000.0)
 
-def test_medico_inicializacao_crm_invalido_numeros(endereco_valido):
+def test_medico_inicializacao_crm_invalido_numeros(endereco_valido): #Teste relacionado ao erro da compatibilidade do CRM
     with pytest.raises(ValueError):
         Medico("Dr. João Silva", "999999999", "joao@example.com", endereco_valido, "1234567A", 10000.0)
 
-def test_calcular_salario(endereco_valido):
+def test_calcular_salario(endereco_valido): # Teste de calculo de salário
     medico = Medico("Dr. João Silva", "999999999", "joao@example.com", endereco_valido, "12345678", 10000.0)
     assert medico.calcular_salario() == 10000.0
 
-def test_str_metodo(endereco_valido):
+def test_str_metodo(endereco_valido): # Teste relacionado ao metodo do ato de puxar os dados
     medico = Medico("Dr. João Silva", "999999999", "joao@example.com", endereco_valido, "12345678", 10000.0)
     assert str(medico) == (
         "Médico: Dr. João Silva\n"
