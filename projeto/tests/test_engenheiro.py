@@ -21,3 +21,4 @@ def test_engenheiro_inicializacao_crea_incorreto_numeros(endereco_valido):
         Engenheiro("João Silva", "9999-9999", "1234567A", "joao@example.com", endereco_valido, 5000.0)
 
 
+# TESTE FUNCIONANDO CORRETAMENTE

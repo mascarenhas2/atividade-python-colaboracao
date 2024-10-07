@@ -50,3 +50,4 @@ def test_str_metodo(endereco_valido):
     )
 
 # Se precisar, adicione mais testes conforme necessário.
+# TESTE FUNCIONANDO CORRETAMENTE

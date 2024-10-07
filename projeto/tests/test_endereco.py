@@ -34,3 +34,5 @@ def test_validar_cep_invalido_formato():
 
 def test_validar_cep_invalido_numerico():
     assert Endereco.validar_cep("ABCDE-FGH") == False
+
+# TESTE FUNCIONANDO CORRETAMENTE
