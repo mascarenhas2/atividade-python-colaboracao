@@ -1,7 +1,7 @@
 import pytest
-from models.endereco import Endereco  # Substitua pelo caminho correto
-from models.funcionario import Funcionario  # Substitua pelo caminho correto
+from projeto.models.endereco import Endereco  # Substitua pelo caminho correto
 from models.medico import Medico  # Substitua pelo caminho correto
+
 
 # Classe Medico é concreta, então vamos testar diretamente.
 @pytest.fixture

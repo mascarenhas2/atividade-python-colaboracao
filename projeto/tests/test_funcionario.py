@@ -1,7 +1,6 @@
 import pytest
 from models.endereco import Endereco  # Substitua pelo caminho correto
 from models.funcionario import Funcionario  # Substitua pelo caminho correto
-from models.engenheiro import Engenheiro  # Substitua pelo caminho correto
 
 # Classe Funcionario é abstrata, então vamos criar uma classe concreta para testar
 class FuncionarioTeste(Funcionario):

@@ -1,5 +1,4 @@
 import pytest
-from models.funcionario import Funcionario  # Substitua pelo caminho correto
 from models.endereco import Endereco  # Substitua pelo caminho correto
 from models.engenheiro import Engenheiro  # Supondo que a classe Engenheiro esteja em models.engenheiro.py
 
