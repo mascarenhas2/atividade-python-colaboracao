@@ -1,3 +1,4 @@
+
 class Endereco:
     def __init__(self, logradouro: str, numero: str, complemento: str, cep: str, cidade: str) -> None:
         if len(logradouro) > 100:
@@ -29,8 +30,8 @@ class Endereco:
     def __str__(self) -> str:
         complemento_str = f", {self.complemento}" if self.complemento else ""
         return (
-            f"Logradouro: {self.logradouro}\n"
-            f"Número: {self.numero}\n"
-            f"Cidade: {self.cidade}\n"
-            f"CEP: {self.cep}{complemento_str}"
+            f"\nLogradouro: {self.logradouro}"
+            f"\nNúmero: {self.numero}"
+            f"\nCidade: {self.cidade}"
+            f"\nCEP: {self.cep}{complemento_str}"
         )
