@@ -1,3 +1,6 @@
+# Andrei Luiz de jesus Souza Almeida
+# Caio Vinicius Mascarenhas Costa
+
 import os
 os.system("cls || clear")
 
