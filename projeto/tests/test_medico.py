@@ -26,4 +26,3 @@ def test_medico_inicializacao_crm_invalido_numeros(endereco_valido):  # Teste re
 def test_calcular_salario_medico(endereco_valido):  # Teste de cálculo de salário
     medico = Medico("Dr. João Silva", "999999999", "joao@example.com", endereco_valido, "12345678", 10000.0)
     assert medico.calcular_salario() == 10000.0
-

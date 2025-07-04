@@ -34,4 +34,3 @@ def test_funcionario_inicializacao_email_invalido(endereco_valido):  # Teste rel
 def test_funcionario_inicializacao_salario_negativo(endereco_valido):  # Teste relacionado ao erro do salário negativo
     with pytest.raises(ValueError):
         FuncionarioTeste("João Silva", "999999999", "joao@example.com", endereco_valido, -1000.0)
-
